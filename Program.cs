@@ -58,7 +58,13 @@ namespace src
                 Console.WriteLine(item.name);
             }
 
+            var employeeByDepartment = new Dictionary<string, List<Employee>>();
+            employeeByDepartment.Add("Engineering", new List<Employee> () { new Employee { name = "Rifat" } });
 
+
+            employeeByDepartment["Engineering"].Add(new Employee { name = "Joy" });
+
+            
 
 
 
