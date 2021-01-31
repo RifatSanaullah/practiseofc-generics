@@ -13,6 +13,11 @@ namespace src
             get;
             set;
         }
+
+        public interface IEqualityComparer
+        {
+
+        }
     }
         
 }

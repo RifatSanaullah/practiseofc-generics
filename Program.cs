@@ -1,8 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace src
 {
+    public class EmployeeComparer : IEqualityComparer<Employee>, IComparer<Employee>
+    {
+
+        int IComparer<Employee>.Compare(Employee x, Employee y)
+        {
+            return String.Compare(x.name, y.name);
+        }
+
+        bool IEqualityComparer<Employee>.Equals(Employee x, Employee y)
+        {
+            return String.Equals(x.name, y.name);
+        }
+
+        int IEqualityComparer<Employee>.GetHashCode(Employee obj)
+        {
+            return obj.name.GetHashCode();
+        }
+    }
+
+
     class Program
     {
         static void Main(string[] args)
@@ -20,7 +41,7 @@ namespace src
                 numbers.Add(1);
             };*/
 
-            Queue<Employee> employees = new Queue<Employee>();
+            /*Queue<Employee> employees = new Queue<Employee>();
             employees.Enqueue(new Employee { name = "Alex" });
             employees.Enqueue(new Employee { name = "harry" });
             employees.Enqueue(new Employee { name = "potter" });
@@ -56,19 +77,27 @@ namespace src
             foreach(var item in set)
             {
                 Console.WriteLine(item.name);
+            }*/
+
+            var departments = new SortedDictionary <string, SortedSet<Employee>>();
+
+            departments.Add("sales", new SortedSet<Employee>(new EmployeeComparer()));
+            departments["sales"].Add(new Employee { name = "joy" });
+
+
+            departments.Add("Engineering", new SortedSet<Employee>(new EmployeeComparer()));
+            departments["Engineering"].Add(new Employee { name = "jason" });
+            departments["Engineering"].Add(new Employee { name = "makki" });
+
+
+            foreach (var department in departments)
+            {
+                Console.WriteLine(department.Key);
+                foreach(var employee in department.Value)
+                {
+                    Console.WriteLine("      " + employee.name);
+                }
             }
-
-            var employeeByDepartment = new Dictionary<string, List<Employee>>();
-            employeeByDepartment.Add("Engineering", new List<Employee> () { new Employee { name = "Rifat" } });
-
-
-            employeeByDepartment["Engineering"].Add(new Employee { name = "Joy" });
-
-            
-
-
-
-
         }
     }
 }
