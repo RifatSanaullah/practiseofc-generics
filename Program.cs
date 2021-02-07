@@ -28,6 +28,13 @@ namespace src
     {
         static void Main(string[] args)
         {
+            Action<bool> print = d => Console.WriteLine(d);
+            Func<double, double> square = d => d * d;
+            Func<double, double, double> add = (x, y) => x + y;
+            Predicate<double> isLessThanTen = d => d < 10;
+            print(isLessThanTen(square(add(1,2))));
+
+
             /*var numbers = new List<int>(10);
             var capacity = -1;
             
